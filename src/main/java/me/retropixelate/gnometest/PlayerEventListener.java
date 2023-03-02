@@ -4,7 +4,7 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.util.*;
@@ -30,16 +30,26 @@ public class PlayerEventListener implements Listener {
     public void onPlayerHit(EntityDamageByEntityEvent event) {
         if (event.getDamager().getType() == EntityType.PLAYER) {
 
-            Player p = (Player) event.getDamager();
-            Entity d = event.getEntity();
-            ItemStack i = p.getInventory().getItemInMainHand();
+            Entity d = event.getDamager();
+            Entity e = event.getEntity();
 
-            if (i.getType() == Material.IRON_HOE && i.getEnchantmentLevel(ARROW_INFINITE) == 1) {
-                Vector v = new Vector(p.getLocation().getX() - d.getLocation().getX(), p.getLocation().getY() - d.getLocation().getY(), p.getLocation().getZ() - d.getLocation().getZ());
-                d.setVelocity(v);
+            if (d.getType() == EntityType.PLAYER) {
+                Player p = (Player) (d);
+                ItemStack i = p.getInventory().getItemInMainHand();
+
+                if (i.getType() == Material.IRON_HOE && i.getEnchantmentLevel(ARROW_INFINITE) == 1) {
+                    Vector v = new Vector(p.getLocation().getX() - e.getLocation().getX(), p.getLocation().getY() - e.getLocation().getY(), p.getLocation().getZ() - e.getLocation().getZ());
+                    e.setVelocity(v);
+                }
+
+
             }
-
         }
+    }
+
+    @EventHandler
+    public void onBowShot(ProjectileHitEvent event) {
+
     }
 
 }
