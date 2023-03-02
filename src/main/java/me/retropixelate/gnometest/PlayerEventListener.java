@@ -21,7 +21,6 @@ public class PlayerEventListener implements Listener {
         if (i.getType() == Material.NETHERITE_HOE && i.getEnchantmentLevel(ARROW_INFINITE) == 1) {
             Vector v = new Vector((p.getVelocity().getX()), (p.getVelocity().getY() + 1.0), (p.getVelocity().getZ()));
             p.setVelocity(v);
-            getServer().broadcastMessage(i.toString());
         }
 
     }
