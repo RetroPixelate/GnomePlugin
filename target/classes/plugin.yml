@@ -1,0 +1,4 @@
+name: GnomeTest
+version: '1.0-SNAPSHOT'
+main: me.retropixelate.gnometest.GnomeTest
+api-version: 1.19
