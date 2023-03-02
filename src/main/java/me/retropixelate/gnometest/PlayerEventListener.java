@@ -18,8 +18,8 @@ public class PlayerEventListener implements Listener {
         Player p = event.getPlayer();
         ItemStack i = event.getItem();
 
-        if (i.getType() == Material.NETHERITE_HOE && i.getEnchantmentLevel(ARROW_INFINITE) == 1) {
-            Vector v = new Vector((p.getVelocity().getX()), (p.getVelocity().getY() + 1.0), (p.getVelocity().getZ()));
+        if (i.getType() == Material.NETHERITE_HOE && i.getEnchantmentLevel(ARROW_INFINITE) == 1 && event.getAction().isRightClick()) {
+            Vector v = new Vector((p.getLocation().getDirection().getX()), (0.2), (p.getLocation().getDirection().getZ()));
             p.setVelocity(v);
         }
 
