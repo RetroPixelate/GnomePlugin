@@ -28,23 +28,35 @@ public class PlayerEventListener implements Listener {
 
     @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent event) {
+
+        Entity e = event.getEntity();
+
         if (event.getDamager().getType() == EntityType.PLAYER) {
+            Player p = (Player) event.getDamager();
+            ItemStack i = p.getInventory().getItemInMainHand();
 
-            Entity d = event.getDamager();
-            Entity e = event.getEntity();
+            if (i.getType() == Material.IRON_HOE && i.getEnchantmentLevel(ARROW_INFINITE) == 1) {
+                Vector v = new Vector(p.getLocation().getX() - e.getLocation().getX(), p.getLocation().getY() - e.getLocation().getY(), p.getLocation().getZ() - e.getLocation().getZ());
+                e.setVelocity(v);
+            }
+        }
 
-            if (d.getType() == EntityType.PLAYER) {
-                Player p = (Player) (d);
+        else if (event.getDamager().getType() == EntityType.ARROW) {
+            Arrow a = (Arrow) event.getDamager();
+
+            if (a.getShooter() instanceof Player) {
+                Player p = (Player) a.getShooter();
                 ItemStack i = p.getInventory().getItemInMainHand();
 
-                if (i.getType() == Material.IRON_HOE && i.getEnchantmentLevel(ARROW_INFINITE) == 1) {
+                if (i.getType() == Material.BOW && i.getEnchantmentLevel(KNOCKBACK) == 1) {
                     Vector v = new Vector(p.getLocation().getX() - e.getLocation().getX(), p.getLocation().getY() - e.getLocation().getY(), p.getLocation().getZ() - e.getLocation().getZ());
                     e.setVelocity(v);
                 }
 
-
             }
+
         }
+
     }
 
     @EventHandler
