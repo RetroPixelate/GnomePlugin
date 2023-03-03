@@ -6,7 +6,7 @@
 
     <groupId>me.retropixelate</groupId>
     <artifactId>GnomeTest</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>GnomeTest</name>

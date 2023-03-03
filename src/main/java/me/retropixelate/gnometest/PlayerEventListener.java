@@ -59,9 +59,32 @@ public class PlayerEventListener implements Listener {
 
     }
 
-    @EventHandler
-    public void onBowShot(ProjectileHitEvent event) {
 
+
+    @EventHandler
+    public void onArrowLand(ProjectileHitEvent event) {
+
+        if (event.getEntity().getType() == EntityType.ARROW) {
+            Arrow a = (Arrow) event.getEntity();
+
+            if (a.getShooter() instanceof Player) {
+                Player p = (Player) a.getShooter();
+                ItemStack i = p.getInventory().getItemInMainHand();
+                ItemStack io = p.getInventory().getItemInOffHand();
+
+                if ((i.getType() == Material.BOW && i.getItemMeta().getDisplayName().equals("Ender Bow") && i.getEnchantmentLevel(PROTECTION_ENVIRONMENTAL) == 2) || (io.getType() == Material.BOW && io.getItemMeta().getDisplayName().equals("Ender Bow") && i.getEnchantmentLevel(PROTECTION_ENVIRONMENTAL) == 1)) {
+
+                    if (event.getHitBlock() != null) {
+                        Location l = new Location(event.getHitBlock().getWorld(), event.getHitBlock().getX(), event.getHitBlock().getY() + 1.0, event.getHitBlock().getZ());
+                        p.teleport(l);
+                    }
+
+                    else if (event.getHitEntity() != null) {
+                        p.teleport(event.getHitEntity().getLocation());
+                    }
+                }
+            }
+        }
     }
 
 }
