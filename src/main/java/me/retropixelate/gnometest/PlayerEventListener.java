@@ -75,12 +75,17 @@ public class PlayerEventListener implements Listener {
                 if ((i.getType() == Material.BOW && i.getItemMeta().getDisplayName().equals("Ender Bow") && i.getEnchantmentLevel(PROTECTION_ENVIRONMENTAL) == 2) || (io.getType() == Material.BOW && io.getItemMeta().getDisplayName().equals("Ender Bow") && i.getEnchantmentLevel(PROTECTION_ENVIRONMENTAL) == 1)) {
 
                     if (event.getHitBlock() != null) {
-                        Location l = new Location(event.getHitBlock().getWorld(), event.getHitBlock().getX(), event.getHitBlock().getY() + 1.0, event.getHitBlock().getZ());
+                        Location l = new Location(event.getHitBlock().getWorld(), event.getHitBlock().getX(), event.getHitBlock().getY() + 1.0, event.getHitBlock().getZ(), p.getLocation().getYaw(),p.getLocation().getPitch());
+                        Vector v = p.getVelocity();
                         p.teleport(l);
+                        p.setVelocity(v);
                     }
 
                     else if (event.getHitEntity() != null) {
-                        p.teleport(event.getHitEntity().getLocation());
+                        Vector v = p.getVelocity();
+                        Location l = new Location(event.getHitEntity().getWorld(), event.getHitEntity().getLocation().getX(), event.getHitEntity().getLocation().getY(), event.getHitEntity().getLocation().getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
+                        p.teleport(l);
+                        p.setVelocity(v);
                     }
                 }
             }
